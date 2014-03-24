@@ -52,6 +52,7 @@ describe('persistent vector', function() {
   it('can be "popped", removing the last element', function() {
     var v1 = new PV(200, 303, 404);
     var v2 = v1.pop();
+    assert(v1.equals(new PV(200, 303, 404)));
     assert(v2.equals(new PV(200, 303)));
   });
 
