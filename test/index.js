@@ -62,7 +62,7 @@ describe('persistent vector', function() {
       array.push(i);
       vec = vec.push(i);
     }
-    for (i = 0; i < 54; i++) {
+    for (i = 0; i < 2000; i++) {
       assert.equal(vec.get(i), array[i]);
     }
   });
