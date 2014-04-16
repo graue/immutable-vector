@@ -1,0 +1,12 @@
+{
+  "name": "immutable-vector",
+  "version": "0.0.1",
+  "devDependencies": {
+    "matcha": "~0.5.0",
+    "mocha": "~1.18.2"
+  },
+  "scripts": {
+    "test": "mocha",
+    "benchmark": "matcha"
+  }
+}
