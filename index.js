@@ -11,14 +11,21 @@ function() {
 var ImmutableVectorSlice = function() {};
 ImmutableVectorSlice.prototype = new ImmutableVector();
 
-ImmutableVector.prototype.slice = function(begin, end) {
+function sanitizeSliceParams(length, begin, end) {
   if (begin === undefined || typeof begin !== 'number' || begin < 0) {
     begin = 0;
   }
-  if (end === undefined || typeof end !== 'number' || end > this.length) {
-    end = this.length;
+  if (end === undefined || typeof end !== 'number' || end > length) {
+    end = length;
   }
   if (end < begin) end = begin;
+  return [begin, end];
+}
+
+ImmutableVector.prototype.slice = function(begin, end) {
+  var beginEnd = sanitizeSliceParams(this.length, begin, end);
+  begin = beginEnd[0];
+  end = beginEnd[1];
 
   var slice = new ImmutableVectorSlice();
   slice._vec = this;
@@ -35,6 +42,18 @@ function cloneSlice(slice) {
   cloned.length = slice.length;
   return cloned;
 }
+
+ImmutableVectorSlice.prototype.slice = function(begin, end) {
+  var beginEnd = sanitizeSliceParams(this.length, begin, end);
+  begin = beginEnd[0];
+  end = beginEnd[1];
+
+  var newSlice = cloneSlice(this);
+  newSlice._offset += begin;
+  newSlice.length = end - begin;
+
+  return newSlice;
+};
 
 ImmutableVectorSlice.prototype.get = function(index) {
   if (index >= 0 && index < this.length) {
