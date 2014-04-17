@@ -64,7 +64,7 @@ function internalSet(vec, index, val) {
       node[childIndex] = node[childIndex].slice();
     } else {
       // Need to create new node. Can happen when inserting element.
-      node[childIndex] = [];
+      node[childIndex] = new Array(nodeSize);
     }
     node = node[childIndex];
     shift -= nodeBits;

@@ -75,7 +75,7 @@ function internalSet(vec, index, val) {
     } else {
       // Need to create new node. This can happen when inserting an
       // element.
-      level[subLevelIndex] = [];
+      level[subLevelIndex] = new Array(nodeSize);
     }
     level = level[subLevelIndex];
     childCapacity /= nodeSize;
