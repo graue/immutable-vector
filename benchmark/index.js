@@ -35,6 +35,13 @@ var changeStuffSuite = function(impl) {
       }
     });
 
+    bench('pop elements', function() {
+      var vec = vec10k;
+      for (var i = 0; i < repCount; i++) {
+        vec = vec.pop();
+      }
+    });
+
     bench('get random elements', function() {
       // This test exploits that each element's value in vec10k is also
       // a valid index.
@@ -67,8 +74,11 @@ var changeStuffSuite = function(impl) {
   };
 };
 
-suite('changing stuff with vector trie',
-      changeStuffSuite(require('../impls/vectorTrie')));
+suite('changing stuff with default impl',
+      changeStuffSuite(require('../index')));
 
 suite('changing stuff with bit trie',
       changeStuffSuite(require('../impls/bitTrie')));
+
+suite('changing stuff with vector trie',
+      changeStuffSuite(require('../impls/vectorTrie')));
