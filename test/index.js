@@ -68,3 +68,14 @@ describe('persistent vector', function() {
     }
   });
 });
+
+describe('peek', function() {
+  it('returns the last element of the array', function() {
+    var vec = new PV(42, 999, 23);
+    assert.equal(vec.peek(), 23);
+  });
+
+  it('returns undefined if array empty', function() {
+    assert.equal(new PV().peek(), undefined);
+  });
+});

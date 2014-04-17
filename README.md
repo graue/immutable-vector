@@ -78,6 +78,13 @@ must already exist within the vector. To append, use `push`.
 Returns a new vector with val appended. For behavior similar to
 `array.push(val)`, use `vector = vector.push(val)`.
 
+### peek
+
+`vector.peek()`
+
+Returns the last element in the vector, or undefined if the vector is
+empty. Equivalent to `vector.get(vector.length - 1)`.
+
 ### pop
 
 `vector.pop()`
@@ -86,7 +93,7 @@ Returns a new vector with the last element removed. For behavior
 similar to `x = array.pop()`, use:
 
 ~~~.js
-x = vector.get(vector.length - 1);
+x = vector.peek();
 vector = vector.pop();
 ~~~
 
