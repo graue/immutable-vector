@@ -127,7 +127,7 @@ PersistentVector.prototype.push = function PersistentVector__push(val) {
   }
 };
 
-PersistentVector.prototype.pop = function PersistentVector__pop(val) {
+PersistentVector.prototype.pop = function PersistentVector__pop() {
   // FIXME: don't use slice for this
   return this.slice(0, this.length - 1);
 };
