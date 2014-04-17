@@ -79,3 +79,64 @@ describe('peek', function() {
     assert.equal(new PV().peek(), undefined);
   });
 });
+
+describe('a vector slice', function() {
+  var vec, slice;
+
+  beforeEach(function() {
+    vec = new PV('a', 'b', 'c', 'd', 'e');
+    slice = vec.slice(2, 4); // ['c', 'd']
+  });
+
+  it('equals a normal vector with same elements', function() {
+    assert(slice.equals(new PV('c', 'd')));
+  });
+
+  it('supports get', function() {
+    assert.equal(slice.get(0), 'c');
+    assert.equal(slice.get(1), 'd');
+  });
+
+  it('can be non-destructively set', function() {
+    var slice2 = slice.set(0, 'cc');
+    var slice3 = slice2.set(1, 'dd');
+    assert(slice3.equals(new PV('cc', 'dd')));
+    assert(slice2.equals(new PV('cc', 'd')));
+    assert(slice.equals(new PV('c', 'd')));
+    assert(vec.equals(new PV('a', 'b', 'c', 'd', 'e')));
+  });
+
+  it("won't let you set out of range", function() {
+    assert.throws(function() { slice.set(-1, 'bbb'); });
+    assert.throws(function() { slice.set(2, 'eee'); });
+  });
+
+  it('returns undefined if you get out of range', function() {
+    assert.equal(slice.get(-1), undefined);
+    assert.equal(slice.get(2), undefined);
+  });
+
+  it('can be non-destructively popped', function() {
+    var slice2 = slice.pop();
+    assert(slice2.equals(new PV('c')));
+    assert(slice.equals(new PV('c', 'd')));
+    assert(vec.equals(new PV('a', 'b', 'c', 'd', 'e')));
+    assert.equal(slice2.get(1), undefined);
+  });
+
+  it('can be non-destructively pushed', function() {
+    var slice2 = slice.push('new');
+    assert(slice2.equals(new PV('c', 'd', 'new')));
+    assert(slice.equals(new PV('c', 'd')));
+    assert(vec.equals(new PV('a', 'b', 'c', 'd', 'e')));
+    assert.equal(slice2.get(2), 'new');
+    assert.equal(slice.get(2), undefined);
+  });
+
+  it('can be sliced again', function() {
+    assert(slice.equals(slice.slice(0, 2)));
+    assert(slice.slice(0, 1).equals(new PV('c')));
+    assert(slice.slice(1, 2).equals(new PV('d')));
+    assert(slice.slice(1, 1).equals(new PV()));
+  });
+});
