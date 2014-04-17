@@ -1,4 +1,4 @@
-var ImmutableVector = require('./impls/vectorTrie');
+var ImmutableVector = require('./impls/bitTrie');
 
 // Add convenience methods.
 
