@@ -1,6 +1,8 @@
 var PV;
+var wrap = require('../wrap');
 
 var changeStuffSuite = function(impl) {
+  impl = wrap(impl);
   return function() {
     var vec10k;
     const length = 10000;
@@ -32,6 +34,13 @@ var changeStuffSuite = function(impl) {
       var vec = vec10k;
       for (var i = 0; i < repCount; i++) {
         vec = vec.push(i&1);
+      }
+    });
+
+    bench('pop elements', function() {
+      var vec = vec10k;
+      for (var i = 0; i < repCount; i++) {
+        vec = vec.pop();
       }
     });
 
@@ -67,8 +76,8 @@ var changeStuffSuite = function(impl) {
   };
 };
 
-suite('changing stuff with vector trie',
-      changeStuffSuite(require('../impls/vectorTrie')));
-
 suite('changing stuff with bit trie',
       changeStuffSuite(require('../impls/bitTrie')));
+
+suite('changing stuff with vector trie',
+      changeStuffSuite(require('../impls/vectorTrie')));
