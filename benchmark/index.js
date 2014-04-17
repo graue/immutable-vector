@@ -36,9 +36,6 @@ var changeStuffSuite = function(impl) {
   };
 };
 
-suite('changing stuff with naive impl',
-      changeStuffSuite(require('../impls/naive')));
-
 suite('changing stuff with vector trie',
       changeStuffSuite(require('../impls/vectorTrie')));
 
