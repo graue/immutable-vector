@@ -1,6 +1,8 @@
 var PV;
+var wrap = require('../wrap');
 
 var changeStuffSuite = function(impl) {
+  impl = wrap(impl);
   return function() {
     var vec10k;
     const length = 10000;
@@ -73,9 +75,6 @@ var changeStuffSuite = function(impl) {
     });
   };
 };
-
-suite('changing stuff with default impl',
-      changeStuffSuite(require('../index')));
 
 suite('changing stuff with bit trie',
       changeStuffSuite(require('../impls/bitTrie')));
