@@ -8,11 +8,6 @@ describe('persistent vector', function() {
     assert.deepEqual(v1.toArray(), [1, 2, 3, 4, 5]);
   });
 
-  it('equals other persistent vectors with same values', function() {
-    var v1 = new PV(1, 2, 3);
-    assert(v1.equals(new PV(1, 2, 3)));
-  });
-
   it('supports non-destructive pushing', function() {
     var v1 = new PV(10, 11, 12);
     var v2 = v1.push(99);
@@ -77,6 +72,42 @@ describe('peek', function() {
 
   it('returns undefined if array empty', function() {
     assert.equal(new PV().peek(), undefined);
+  });
+});
+
+describe('vector equality', function() {
+  it('is true for vectors with same values', function() {
+    assert(new PV('a', 'b', 3).equals(new PV('a', 'b', 3)));
+    assert(new PV().equals(new PV()));
+    var v1 = new PV(1, 2, 3, 4, 5).pop();
+    var v2 = new PV(1, 2, 3).push(4);
+    assert(v1.equals(v2));
+  });
+
+  it('is false for vectors with different values', function() {
+    assert(!new PV('a', 'b', 3).equals(new PV('a', 'b', 4)));
+    assert(!new PV(9, 8, 7).equals(new PV(9, 8, 7, 6)));
+    assert(!new PV().equals(new PV(1)));
+  });
+
+  it('recurses into vector elements', function() {
+    var vov1 = new PV(new PV(1, 2), new PV(3, 4));
+    var vov2 = new PV(new PV(1).push(2), new PV(3).push(4));
+    var vov3 = new PV(new PV(1, 2), new PV(3, 3));
+    assert(vov1.equals(vov2));
+    assert(vov2.equals(vov1));
+    assert(!vov1.equals(vov3));
+  });
+
+  it('uses object equality if mutable collections are elements', function() {
+    // Note: Putting mutable collections into immutable ones is not
+    // recommended as it can lead to confusion. Nevertheless, this guarantee
+    // (that if you *do* insert a mutable collection, object equality is used)
+    // is intended to be part of the API contract.
+    var a1 = [], a2 = [];
+    var v1 = new PV(a1, a2);
+    assert(v1.equals(new PV(a1, a2)));
+    assert(!v1.equals(new PV(a1, a1)));
   });
 });
 
