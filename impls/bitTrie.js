@@ -1,6 +1,6 @@
-var nodeSize = 32;
 var nodeBits = 5;
-var nodeBitmask = 31;
+var nodeSize = (1<<nodeBits); // 32
+var nodeBitmask = nodeSize - 1;
 
 function PersistentVector() {
   var len = arguments.length;
@@ -90,7 +90,7 @@ PersistentVector.prototype.push = function PersistentVector__push(val) {
   } else if (this.length === 0) {
     // Empty vector? Just create a new one with the pushed value.
     return new PersistentVector(val);
-  } else if (this.length < ((nodeBitmask + 1) << this._maxShift)) {
+  } else if (this.length < (nodeSize << this._maxShift)) {
     // The root is ok, but we'll need to create some new nodes.
     // Actually, the implementation is the same as before - see the
     // case where level[subLevelIndex] is undefined in internalSet.
