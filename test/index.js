@@ -75,6 +75,52 @@ describe('peek', function() {
   });
 });
 
+function range(length) {
+  var vec = new PV();
+  for (var i = 0; i < length; i++) {
+    vec = vec.push(i);
+  }
+  return vec;
+}
+
+describe('popping', function() {
+  it('works on empty vectors', function() {
+    var vec = new PV();
+    assert(vec.equals(vec.pop()));
+  });
+
+  it('works on size-1 vectors', function() {
+    var vec = new PV('foobar');
+    assert(vec.pop().equals(new PV()));
+  });
+
+  it('works when leaf node stays non-empty', function() {
+    assert(new PV(1, 2).pop().equals(new PV(1)));
+    assert(range(32).pop().equals(range(31)));
+    assert(range(34).pop().equals(range(33)));
+    assert(range(66).pop().equals(range(65)));
+  });
+
+  it('works when a leaf node must be removed', function() {
+    assert(range(65).pop().equals(range(64)));
+    assert(range(96).equals(range(97).pop()));
+  });
+
+  it('works when the entire root is being changed', function() {
+    assert(range(33).pop().equals(range(32)));
+    assert(range(1024).equals(range(1025).pop()));
+  });
+
+  it('can pop a big vector all the way to empty', function() {
+    var vec = range(2000);
+    for (var i = 0; i < 1999; i++) {
+      vec = vec.pop();
+    }
+    assert(new PV(0).equals(vec));
+    assert(new PV().equals(vec.pop()));
+  });
+});
+
 describe('vector equality', function() {
   it('is true for vectors with same values', function() {
     assert(new PV('a', 'b', 3).equals(new PV('a', 'b', 3)));
