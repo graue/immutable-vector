@@ -8,5 +8,15 @@
   "scripts": {
     "test": "mocha",
     "benchmark": "matcha"
+  },
+  "testling": {
+    "harness": "mocha",
+    "files": "test/index.js",
+    "browsers": [
+      "ie/8..latest",
+      "chrome/latest",
+      "firefox/latest",
+      "safari/latest"
+    ]
   }
 }
