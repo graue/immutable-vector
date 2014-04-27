@@ -97,9 +97,6 @@ x = vector.peek();
 vector = vector.pop();
 ~~~
 
-Note: Due to my own laziness, this is currently O(n). This will be
-fixed in the future.
-
 ### slice
 
 `vector.slice(begin, [end])`

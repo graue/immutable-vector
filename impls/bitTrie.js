@@ -118,8 +118,44 @@ PersistentVector.prototype.push = function PersistentVector__push(val) {
 };
 
 PersistentVector.prototype.pop = function PersistentVector__pop() {
-  // FIXME: don't use slice for this
-  return this.slice(0, this.length - 1);
+  var popped;
+
+  if (this.length === 0) return this;
+  if (this.length === 1) return new PersistentVector();
+
+  // If the last leaf node will remain non-empty after popping,
+  // simply set the last element to null (to allow GC) and
+  // decrement the length.
+  if ((this.length & nodeBitmask) !== 1) {
+    popped = internalSet(this, this.length - 1, null);
+    popped.length--;
+  }
+  // If the length is a power of the branching factor plus one,
+  // reduce the tree's depth and install the root's first child as
+  // the new root.
+  else if (this.length - 1 === nodeSize << (this._maxShift - nodeBits)) {
+    popped = cloneVec(this);
+    popped._contents = this._contents[0];
+    popped.length--;
+    popped._maxShift = this._maxShift - nodeBits;
+  }
+  // Otherwise, the root stays the same but we remove a leaf node.
+  else {
+    popped = cloneVec(this);
+
+    var node = popped._contents = popped._contents.slice();
+    var shift = this._maxShift;
+    var removedIndex = this.length - 1;
+
+    while (shift > nodeBits) { // i.e., Until we get to lowest non-leaf node.
+      var localIndex = (removedIndex >> shift) & nodeBitmask;
+      node = node[localIndex] = node[localIndex].slice();
+      shift -= nodeBits;
+    }
+    node[(removedIndex >> shift) & nodeBitmask] = null;
+    popped.length--;
+  }
+  return popped;
 };
 
 PersistentVector.prototype.slice = function PersistentVector__slice(begin, end) {
