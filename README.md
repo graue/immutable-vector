@@ -107,9 +107,10 @@ elements starting from index `begin`, up to but not including index
 
 Note: Negative indices are not supported.
 
-Note: This is currently O(m) where m is the number of elements copied.
-I'm not yet sure if it's possible to do better while keeping updates
-to the slice efficient.
+Note: This is O(1), but there's a catch: it works by creating a view
+into the original vector. This prevents objects that are in the
+original vector, but not in the slice, from being garbage collected as
+long as references to the slice, or modified versions of it, remain.
 
 ### equals
 
