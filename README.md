@@ -138,7 +138,9 @@ Returns a plain, mutable Array with the same elements as the vector.
 ## Tests and benchmarks
 
 Tests use [Mocha](http://visionmedia.github.io/mocha/). `npm test` to
-run them.
+run them via Node. To run them in a browser, install testling globally
+(`sudo npm install -g testling`), run `testling -u` and open the URL
+it prints out.
 
 Benchmarks use [Matcha](https://github.com/logicalparadox/matcha).
 `npm run benchmark`.
