@@ -141,9 +141,7 @@ Tests use [Mocha](http://visionmedia.github.io/mocha/). `npm test` to
 run them.
 
 Benchmarks use [Matcha](https://github.com/logicalparadox/matcha).
-`npm run benchmark`. For comparison purposes, they run with several
-different implementations, including a naive ImmutableVector that
-copies the entire array on every change, as a control.
+`npm run benchmark`.
 
 
 ## Contributing

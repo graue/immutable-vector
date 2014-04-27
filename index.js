@@ -1,1 +1,1 @@
-module.exports = require('./wrap')(require('./impls/bitTrie'));
+module.exports = require('./lib/ImmutableVector');
