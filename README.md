@@ -1,5 +1,7 @@
 # immutable-vector
 
+[![browser support](https://ci.testling.com/graue/immutable-vector.png)](https://ci.testling.com/graue/immutable-vector)
+
 An efficient immutable vector in pure JavaScript. Not ready for
 real-world use yet, but feedback appreciated. [Announced
 here](https://scott.mn/2014/03/24/implementing_immutable_vectors_javascript/).
