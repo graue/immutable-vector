@@ -134,6 +134,27 @@ itself and any nested vectors.
 
 Returns a plain, mutable Array with the same elements as the vector.
 
+### forEach
+
+`vector.forEach(callback, [thisArg])`
+
+Like
+[array.forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach).
+Calls callback once for each element in the vector, with `this` set to
+`thisArg` (or undefined), with three arguments: value, index, and a
+reference to the whole vector.
+
+### iterator
+
+`vector.iterator()`
+
+Returns an iterator compatible with the ES6 [Iterator
+protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/The_Iterator_protocol).
+
+Note: This API design does *not* match how you make an ES6 Iterator
+from an Array. That behavior appears impossible to define for custom
+objects in a backwards-compatible way.
+
 
 ## Tests and benchmarks
 

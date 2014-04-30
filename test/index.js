@@ -217,3 +217,14 @@ describe('a vector slice', function() {
     assert(slice.slice(1, 1).equals(new IV()));
   });
 });
+
+describe('vector foreach', function() {
+  it('calls callback once per element', function() {
+    var calledArgs = [];
+    var vec = new IV(1, 3, 5, 'pants', 1.4, undefined, null, true, 0);
+    vec.forEach(function(val) {
+      calledArgs.push(val);
+    });
+    assert.deepEqual(vec.toArray(), calledArgs);
+  });
+});
