@@ -297,3 +297,34 @@ describe('reduce', function() {
     }, TypeError);
   });
 });
+
+describe('indexOf', function() {
+  var fruits = new IV('apple', 'banana', 'cherry', 'apple', 'grape');
+
+  it('returns first index at which a value appears', function() {
+    assert.strictEqual(fruits.indexOf('apple'), 0);
+    assert.strictEqual(fruits.indexOf('banana'), 1);
+    assert.strictEqual(fruits.indexOf('cherry'), 2);
+    assert.strictEqual(fruits.indexOf('grape'), 4);
+  });
+
+  it('returns -1 if the value is not found', function() {
+    assert.strictEqual(fruits.indexOf('tomato'), -1);
+    assert.strictEqual(new IV().indexOf('foo'), -1);
+  });
+
+  it('takes an optional start index', function() {
+    assert.strictEqual(fruits.indexOf('apple', 1), 3);
+    assert.strictEqual(fruits.indexOf('apple', 0), 0);
+    assert.strictEqual(fruits.indexOf('apple', 4), -1);
+    assert.strictEqual(fruits.indexOf('apple', 53), -1);
+  });
+
+  it('compares nested vectors by value', function() {
+    var nested = new IV(new IV(1, 2), new IV(3, 4), new IV(5, new IV(6, 7)));
+    assert.strictEqual(nested.indexOf(new IV(1, 2)), 0);
+    assert.strictEqual(nested.indexOf(new IV(3, 4)), 1);
+    assert.strictEqual(nested.indexOf(new IV(5, new IV(6, 7))), 2);
+    assert.strictEqual(nested.indexOf(new IV(6, 7)), -1);
+  });
+});

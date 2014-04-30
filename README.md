@@ -149,6 +149,12 @@ zeroth element is then skipped).
 If the vector is empty and a value for `initial` is not provided, this
 method throws a TypeError.
 
+### v.indexOf(element, [fromIndex])
+
+Returns the first index at which `element` occurs in the vector, or -1
+if `element` does not occur in the vector. Starts the search at
+`fromIndex` if provided, else index 0.
+
 ### v.iterator()
 
 Returns an iterator compatible with the ES6 [Iterator
