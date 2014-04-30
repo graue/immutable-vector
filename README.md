@@ -44,9 +44,16 @@ this can be thought of as "effectively O(1)".
 For more on how it works, see [this excellent blog
 post](http://hypirion.com/musings/understanding-persistent-vector-pt-1).
 
-### new ImmutableVector(...)
+### v = new ImmutableVector(...)
 
 Creates a new immutable vector with the arguments as values.
+
+### v = ImmutableVector.from(arrayLike)
+
+Creates a new immutable vector from the array-like object, which can
+be any object that contains a `.length` property and has numeric
+indices from 0 to length-1. Similar to ES6 `Array.from` but does not
+support the optional additional arguments.
 
 ### v.length
 

@@ -228,3 +228,25 @@ describe('vector foreach', function() {
     assert.deepEqual(vec.toArray(), calledArgs);
   });
 });
+
+describe('from constructor', function() {
+  it('creates vectors from array-likes', function() {
+    var array = [1, 3, 5, 'pants', 1.4, undefined, null, true, 0];
+    var vec = IV.from(array);
+    assert.deepEqual(vec.toArray(), array);
+
+    assert.deepEqual(IV.from([]).toArray(), []);
+
+    var unfilledArray = new Array(8);
+    unfilledArray[4] = 'yes';
+    assert.deepEqual(IV.from(unfilledArray).toArray(),
+      [void 0, void 0, void 0, void 0, 'yes', void 0, void 0, void 0]);
+
+    var arrayLike = {length: 3};
+    arrayLike[0] = 'first';
+    arrayLike[1] = 'second';
+    arrayLike[2] = 'third';
+    assert.deepEqual(IV.from(arrayLike).toArray(),
+      ['first', 'second', 'third']);
+  });
+});
