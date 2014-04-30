@@ -44,28 +44,20 @@ this can be thought of as "effectively O(1)".
 For more on how it works, see [this excellent blog
 post](http://hypirion.com/musings/understanding-persistent-vector-pt-1).
 
-### constructor
-
-`new ImmutableVector(...)`
+### new ImmutableVector(...)
 
 Creates a new immutable vector with the arguments as values.
 
-### length
-
-`vector.length`
+### v.length
 
 Number of items in the vector.
 
-### get
-
-`vector.get(index)`
+### v.get(index)
 
 Analog to `array[index]`. Returns the value at the index given, if `0
 <= index < vector.length`, else undefined.
 
-### set
-
-`vector.set(index, val)`
+### v.set(index, val)
 
 Returns a new vector that contains val at index. For behavior similar
 to `array[index] = val`, use `vector = vector.set(index, val)`.
@@ -73,23 +65,17 @@ to `array[index] = val`, use `vector = vector.set(index, val)`.
 Note: Unlike with Arrays, sparse vectors are not supported. The index
 must already exist within the vector. To append, use `push`.
 
-### push
-
-`vector.push(val)`
+### v.push(val)
 
 Returns a new vector with val appended. For behavior similar to
 `array.push(val)`, use `vector = vector.push(val)`.
 
-### peek
-
-`vector.peek()`
+### v.peek()
 
 Returns the last element in the vector, or undefined if the vector is
 empty. Equivalent to `vector.get(vector.length - 1)`.
 
-### pop
-
-`vector.pop()`
+### v.pop()
 
 Returns a new vector with the last element removed. For behavior
 similar to `x = array.pop()`, use:
@@ -99,9 +85,7 @@ x = vector.peek();
 vector = vector.pop();
 ~~~
 
-### slice
-
-`vector.slice(begin, [end])`
+### v.slice(begin, [end])
 
 Like `array.slice`. Returns a new vector that contains all the
 elements starting from index `begin`, up to but not including index
@@ -114,9 +98,7 @@ into the original vector. This prevents objects that are in the
 original vector, but not in the slice, from being garbage collected as
 long as references to the slice, or modified versions of it, remain.
 
-### equals
-
-`vector.equals(otherVector)`
+### v.equals(otherVector)
 
 Returns true if the two vectors are equal.
 
@@ -128,31 +110,25 @@ Does not attempt to descend into any other collection types.
 Worst case O(n), where n is the total number of elements in the vector
 itself and any nested vectors.
 
-### toArray
-
-`vector.toArray()`
+### v.toArray()
 
 Returns a plain, mutable Array with the same elements as the vector.
 
-### forEach
-
-`vector.forEach(callback, [thisArg])`
+### v.forEach(fun, [thisArg])
 
 Like
 [array.forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach).
-Calls callback once for each element in the vector, with `this` set to
+Calls fun once for each element in the vector, with `this` set to
 `thisArg` (or undefined), with three arguments: value, index, and a
 reference to the whole vector.
 
-### iterator
-
-`vector.iterator()`
+### v.iterator()
 
 Returns an iterator compatible with the ES6 [Iterator
 protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/The_Iterator_protocol).
 
-Note: This API design does *not* match how you make an ES6 Iterator
-from an Array. That behavior appears impossible to define for custom
+Note: This API design doesn't match how you make an ES6 Iterator from
+an Array. Sadly, that behavior appears impossible to define for custom
 objects in a backwards-compatible way.
 
 
