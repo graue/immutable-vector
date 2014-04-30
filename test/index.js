@@ -270,3 +270,30 @@ describe('map', function() {
     assert(mapped.equals(new IV(6, 27, 30)));
   });
 });
+
+function sum(a, b) {
+  return a + b;
+}
+
+describe('reduce', function() {
+  it('applies a function to an accumulator and each value', function() {
+    var vec = new IV(5, 30, 900, 1337);
+    assert.strictEqual(vec.reduce(sum), 5 + 30 + 900 + 1337);
+  });
+
+  it('optionally takes an initial value', function() {
+    var vec = new IV(5, 30, 900, 1337);
+    var initial = -1337;
+    assert.strictEqual(vec.reduce(sum, initial), 935);
+  });
+
+  it('can be called on empty vector with an initial value', function() {
+    assert.strictEqual(new IV().reduce(sum, 0), 0);
+  });
+
+  it('throws if called on empty vector with no initial value', function() {
+    assert.throws(function() {
+      return new IV().reduce(sum);
+    }, TypeError);
+  });
+});

@@ -137,6 +137,18 @@ Returns a new vector containing the result of calling `fun` on each
 element of `v`. If provided, `thisArg` is bound to `this` within the
 provided function.
 
+### v.reduce(fun, [initial])
+
+Like
+[array.reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce).
+Calls `fun` repeatedly with four arguments: accumulator, currentValue,
+index, and `v` itself. Accumulator is initialized to the value of
+`initial`, if provided, or `v.get(0)` otherwise (in which case the
+zeroth element is then skipped).
+
+If the vector is empty and a value for `initial` is not provided, this
+method throws a TypeError.
+
 ### v.iterator()
 
 Returns an iterator compatible with the ES6 [Iterator
