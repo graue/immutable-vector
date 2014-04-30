@@ -129,6 +129,14 @@ Calls fun once for each element in the vector, with `this` set to
 `thisArg` (or undefined), with three arguments: value, index, and a
 reference to the whole vector.
 
+### v.map(fun, [thisArg])
+
+Like
+[array.map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map).
+Returns a new vector containing the result of calling `fun` on each
+element of `v`. If provided, `thisArg` is bound to `this` within the
+provided function.
+
 ### v.iterator()
 
 Returns an iterator compatible with the ES6 [Iterator

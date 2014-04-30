@@ -250,3 +250,23 @@ describe('from constructor', function() {
       ['first', 'second', 'third']);
   });
 });
+
+describe('map', function() {
+  it('applies a function to each value', function() {
+    var vec = new IV(5, 10, 15, 'foo', -2);
+    var mapped = vec.map(function(n) { return n + 3; });
+    assert(mapped.equals(new IV(8, 13, 18, 'foo3', 1)));
+  });
+
+  it('optionally passes a this argument', function() {
+    var vec = new IV(2, 9, 10);
+    var myObj = {
+      multiplier: 3,
+      multiply: function(n) {
+        return this.multiplier * n;
+      }
+    };
+    var mapped = vec.map(myObj.multiply, myObj);
+    assert(mapped.equals(new IV(6, 27, 30)));
+  });
+});
