@@ -283,6 +283,36 @@ describe('map', function() {
   });
 });
 
+describe('filter', function() {
+  it('removes values that fail a predicate', function() {
+    var vec = new IV(8, 7, 6, 5, 4);
+    var filtered = vec.filter(function(n) {
+      return n % 2 === 0;
+    });
+    assert(filtered.equals(new IV(8, 6, 4)));
+  });
+
+  it('passes the zero-based index', function() {
+    var vec = new IV(0, 52, 2, 97, 89, 5);
+    var filtered = vec.filter(function(n, idx) {
+      return n !== idx;
+    });
+    assert(filtered.equals(new IV(52, 97, 89)));
+  });
+
+  it('optionally passes a this argument', function() {
+    var vec = new IV(10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+    var myObj = {
+      allowedValues: [3, 4, 10, 20],
+      filterFunc: function(n) {
+        return this.allowedValues.indexOf(n) !== -1;
+      }
+    };
+    var filtered = vec.filter(myObj.filterFunc, myObj);
+    assert(filtered.equals(new IV(10, 4, 3)));
+  });
+});
+
 function sum(a, b) {
   return a + b;
 }
