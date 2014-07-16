@@ -137,6 +137,14 @@ Returns a new vector containing the result of calling `fun` on each
 element of `v`. If provided, `thisArg` is bound to `this` within the
 provided function.
 
+### v.filter(fun, [thisArg])
+
+Like
+[array.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter).
+Returns a new vector containing only the elements for which
+`fun(elementValue, elementIndex)` returns a truthy value. If provided,
+`thisArg` is bound to `this` within the calls to `fun`.
+
 ### v.reduce(fun, [initial])
 
 Like
