@@ -1,6 +1,19 @@
 # immutable-vector
 
-[![browser support](https://ci.testling.com/graue/immutable-vector.png)](https://ci.testling.com/graue/immutable-vector)
+## This library is deprecated.
+
+Everything here is documented and works, but immutable vectors are
+much more useful combined with other immutable data structures
+(particularly maps and sets).
+
+Before I could get around to implementing maps and sets, Lee Byron at
+Facebook did it first with the much more feature-complete, BSD
+licensed [immutable-js](https://github.com/facebook/immutable-js).
+
+I plan to use and contribute to immutable-js in the future, and
+recommend you do the same!
+
+## Original description
 
 An efficient immutable vector in pure JavaScript. Not ready for
 real-world use yet, but feedback appreciated. [Announced
